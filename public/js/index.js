@@ -36,6 +36,34 @@ function addBookmarkFetch( title, description, url2, rating ){
         });
 }
 
+function deleteBookmarkFetch( id ){
+    let url = `/api/bookmark/${id}`;
+
+    let settings = {
+        method : 'DELETE',
+        headers : {
+            Authorization : `Bearer ${API_TOKEN}`,
+            'Content-Type' : 'application/json'
+        },
+    }
+
+    let results = document.querySelector( '.results' );
+
+    fetch( url, settings )
+        .then( response => {
+            if( response.ok ){
+                return response.json();
+            }
+            throw new Error( response.statusText );
+        })
+        .then( responseJSON => {
+            fetchBookmarks();
+        })
+        .catch( err => {
+            results.innerHTML = `<div> ${err.message} </div>`;
+        });
+}
+
 function fetchBookmarks(){
 
     let url = '/api/bookmarks';
@@ -58,11 +86,11 @@ function fetchBookmarks(){
             results.innerHTML = "";
             for ( let i = 0; i < responseJSON.length; i ++ ){
                 results.innerHTML += `<div> Bookmark ${i+1}: </div>`;
-                results.innerHTML += `<div> ${responseJSON[i].id} </div>`;
-                results.innerHTML += `<div> ${responseJSON[i].title} </div>`;
-                results.innerHTML += `<div> ${responseJSON[i].description} </div>`;
-                results.innerHTML += `<div> ${responseJSON[i].url} </div>`;
-                results.innerHTML += `<div> ${responseJSON[i].rating} </div>`;
+                results.innerHTML += `<div> Id: ${responseJSON[i].id} </div>`;
+                results.innerHTML += `<div> Title: ${responseJSON[i].title} </div>`;
+                results.innerHTML += `<div> Description: ${responseJSON[i].description} </div>`;
+                results.innerHTML += `<div> Url: ${responseJSON[i].url} </div>`;
+                results.innerHTML += `<div> Rating: ${responseJSON[i].rating} </div>`;
             }
         })
         .catch( err => {
