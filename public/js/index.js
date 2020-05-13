@@ -182,7 +182,7 @@ function watchUpdateBookmarkForm(){
         let url2 = document.getElementById( 'update-bookmarkUrl' ).value;
         let rating = document.getElementById( 'update-bookmarkRating' ).value;
 
-        updateBookmarkFetch( title, description, url2, rating );
+        updateBookmarkFetch( id, title, description, url2, rating );
     })
 }
 
