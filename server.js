@@ -11,7 +11,7 @@ const app = express();
 const jsonParser = bodyParser.json();
 const { v4: uuidv4 } = require('uuid');
 
-//app.use( cors );
+app.use( cors );
 app.use( express.static( "public" ) );
 app.use( morgan( 'dev' ) );
 app.use( validateToken );
