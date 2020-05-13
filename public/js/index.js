@@ -128,7 +128,7 @@ function watchDeleteBookmarkForm(){
 
     bookmarksForm.addEventListener( 'submit' , ( event ) => {
         event.preventDefault();
-        let id = document.getElementById( 'bdelete-bookmarkTitle' ).value;
+        let id = document.getElementById( 'delete-bookmarkId' ).value;
 
         deleteBookmarkFetch( id );
     })
