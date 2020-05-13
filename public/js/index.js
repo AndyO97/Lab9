@@ -57,7 +57,12 @@ function fetchBookmarks(){
         .then( responseJSON => {
             results.innerHTML = "";
             for ( let i = 0; i < responseJSON.length; i ++ ){
-                results.innerHTML += `<div> ${responseJSON[i].name} </div>`;
+                results.innerHTML += `<div> Bookmark ${i+1}: </div>`;
+                results.innerHTML += `<div> ${responseJSON[i].id} </div>`;
+                results.innerHTML += `<div> ${responseJSON[i].title} </div>`;
+                results.innerHTML += `<div> ${responseJSON[i].description} </div>`;
+                results.innerHTML += `<div> ${responseJSON[i].url} </div>`;
+                results.innerHTML += `<div> ${responseJSON[i].rating} </div>`;
             }
         })
         .catch( err => {
