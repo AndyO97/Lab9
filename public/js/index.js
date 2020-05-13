@@ -123,9 +123,21 @@ function watchAddBookmarkForm(){
     })
 }
 
+function watchDeleteBookmarkForm(){
+    let bookmarksForm = document.querySelector( '.delete-bookmark-form' );
+
+    bookmarksForm.addEventListener( 'submit' , ( event ) => {
+        event.preventDefault();
+        let id = document.getElementById( 'bdelete-bookmarkTitle' ).value;
+
+        deleteBookmarkFetch( id );
+    })
+}
+
 function init(){
     watchBookmarksForm();
     watchAddBookmarkForm();
+    watchDeleteBookmarkForm();
 }
 
 init();
