@@ -64,6 +64,42 @@ function deleteBookmarkFetch( id ){
         });
 }
 
+function updateBookmarkFetch( id, title, description, url2, rating ){
+    let url = `/api/bookmark/${id}`;
+
+    let data = {
+        title : title,
+        description : description,
+        url : url2,
+        rating : Number(rating)
+    }
+
+    let settings = {
+        method : 'PATCH',
+        headers : {
+            Authorization : `Bearer ${API_TOKEN}`,
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify( data )
+    }
+
+    let results = document.querySelector( '.results' );
+
+    fetch( url, settings )
+        .then( response => {
+            if( response.ok ){
+                return response.json();
+            }
+            throw new Error( response.statusText );
+        })
+        .then( responseJSON => {
+            fetchBookmarks();
+        })
+        .catch( err => {
+            results.innerHTML = `<div> ${err.message} </div>`;
+        });
+}
+
 function fetchBookmarks(){
 
     let url = '/api/bookmarks';
@@ -123,6 +159,7 @@ function watchAddBookmarkForm(){
     })
 }
 
+
 function watchDeleteBookmarkForm(){
     let bookmarksForm = document.querySelector( '.delete-bookmark-form' );
 
@@ -134,10 +171,26 @@ function watchDeleteBookmarkForm(){
     })
 }
 
+function watchUpdateBookmarkForm(){
+    let bookmarksForm = document.querySelector( '.update-bookmark-form' );
+
+    bookmarksForm.addEventListener( 'submit' , ( event ) => {
+        event.preventDefault();
+        let id = document.getElementById( 'update-bookmarkId' ).value;
+        let title = document.getElementById( 'update-bookmarkTitle' ).value;
+        let description = document.getElementById( 'update-bookmarkDescription' ).value;
+        let url2 = document.getElementById( 'update-bookmarkUrl' ).value;
+        let rating = document.getElementById( 'update-bookmarkRating' ).value;
+
+        updateBookmarkFetch( title, description, url2, rating );
+    })
+}
+
 function init(){
     watchBookmarksForm();
     watchAddBookmarkForm();
     watchDeleteBookmarkForm();
+    watchUpdateBookmarkForm();
 }
 
 init();
