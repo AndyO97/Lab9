@@ -127,7 +127,8 @@ app.delete( '/api/bookmark/:id', ( req, res ) => {
                                         result.errmsg;
                     return res.status( 409 ).end();
                 }
-                return res.status( 200 ).end(); 
+                //return res.status( 200 ).end(); 
+                return res.status( 202 ).json( result ); 
             })
             .catch( err => {
                 res.statusMessage = `There are no bookmarks with the provided 'id=${id}'.`;
