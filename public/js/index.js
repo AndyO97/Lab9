@@ -101,6 +101,41 @@ function updateBookmarkFetch( id, title, description, url2, rating ){
         });
 }
 
+function getBookmarkFetch( title ){
+    let url = `/api/bookmark?title=${title}`;
+
+
+    let settings = {
+        method : 'GET',
+        headers : {
+            Authorization : `Bearer ${API_TOKEN}`,
+            'Content-Type' : 'application/json'
+        },
+
+    }
+
+    let results = document.querySelector( '.results' );
+
+    fetch( url, settings )
+        .then( response => {
+            if( response.ok ){
+                return response.json();
+            }
+            throw new Error( response.statusText );
+        })
+        .then( responseJSON => {
+                results.innerHTML += `<div> Bookmark: </div>`;
+                results.innerHTML += `<div> Id: ${responseJSON.id} </div>`;
+                results.innerHTML += `<div> Title: ${responseJSON.title} </div>`;
+                results.innerHTML += `<div> Description: ${responseJSON.description} </div>`;
+                results.innerHTML += `<div> Url: ${responseJSON.url} </div>`;
+                results.innerHTML += `<div> Rating: ${responseJSON.rating} </div>`;
+        })
+        .catch( err => {
+            results.innerHTML = `<div> ${err.message} </div>`;
+        });
+}
+
 function fetchBookmarks(){
 
     let url = '/api/bookmarks';
@@ -187,11 +222,23 @@ function watchUpdateBookmarkForm(){
     })
 }
 
+function watchGetBookmarkForm(){
+    let bookmarksForm = document.querySelector( '.get-bookmark-form' );
+
+    bookmarksForm.addEventListener( 'submit' , ( event ) => {
+        event.preventDefault();
+        let id = document.getElementById( 'get-bookmarkTitle' ).value;
+        
+        getBookmarkFetch( id );
+    })
+}
+
 function init(){
     watchBookmarksForm();
     watchAddBookmarkForm();
     watchDeleteBookmarkForm();
     watchUpdateBookmarkForm();
+    watchGetBookmarkForm();
 }
 
 init();
