@@ -124,12 +124,13 @@ function getBookmarkFetch( title ){
             throw new Error( response.statusText );
         })
         .then( responseJSON => {
+                results.innerHTML = "";
                 results.innerHTML += `<div> Bookmark: </div>`;
-                results.innerHTML += `<div> Id: ${responseJSON.id} </div>`;
-                results.innerHTML += `<div> Title: ${responseJSON.title} </div>`;
-                results.innerHTML += `<div> Description: ${responseJSON.description} </div>`;
-                results.innerHTML += `<div> Url: ${responseJSON.url} </div>`;
-                results.innerHTML += `<div> Rating: ${responseJSON.rating} </div>`;
+                results.innerHTML += `<div> Id: ${responseJSON[0].id} </div>`;
+                results.innerHTML += `<div> Title: ${responseJSON[0].title} </div>`;
+                results.innerHTML += `<div> Description: ${responseJSON[0].description} </div>`;
+                results.innerHTML += `<div> Url: ${responseJSON[0].url} </div>`;
+                results.innerHTML += `<div> Rating: ${responseJSON[0].rating} </div>`;
         })
         .catch( err => {
             results.innerHTML = `<div> ${err.message} </div>`;
