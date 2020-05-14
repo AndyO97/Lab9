@@ -63,7 +63,8 @@ const Bookmarks = {
     deleteBookmark : function(Pid){
         return bookmarksCollection
             //.deleteOne({id: Pid})
-            .findOneAndRemove({id: Pid})
+            //.findOneAndRemove({id: Pid})
+            .findOneAndDelete({id: Pid})
             .then( allBookmarks => {
                 return allBookmarks;
             })
