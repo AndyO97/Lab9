@@ -68,6 +68,7 @@ function updateBookmarkFetch( id, title, description, url2, rating ){
     let url = `/api/bookmark/${id}`;
 
     let data = {
+        id : id,
         title : title,
         description : description,
         url : url2,
